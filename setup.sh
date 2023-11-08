@@ -154,7 +154,7 @@ if [ "$response" = "y" ]; then
     mkdir -p "$HOME/.config/"
     cp -r "$HOME/Rep/dotfiles/home/.config/fish/" "$HOME/.config/fish/"
     cp -r "$HOME/Rep/dotfiles/home/.config/nvim/" "$HOME/.config/nvim/"
-    nvm install 18.7.0
+    fish -c "nvm install 18.7.0"
     nvim -c ":PluginInstall" -c ":qa"
     cd "$HOME/.vim/bundle/coc.nvim" && npm install
 else
