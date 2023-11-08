@@ -151,7 +151,8 @@ if [ "$response" = "y" ]; then
     git clone git@github.com:lesserfish/dotfiles.git "$HOME/Rep/dotfiles/"
     cp "$HOME/Rep/dotfiles/home/.vimrc" "$HOME/.vimrc"
     cp "$HOME/Rep/dotfiles/home/.tmux.conf" "$HOME/.tmux.conf"
-    cp -r "$HOME/Rep/dotfiles/home/.config/fish/" "$HOME/.config/"
+    cp -r "$HOME/Rep/dotfiles/home/.config/fish/" "$HOME/.config/fish/"
+    cp -r "$HOME/Rep/dotfiles/home/.config/nvim/" "$HOME/.config/nvim/"
     nvim -c ":PluginInstall" -c ":qa"
 else
     echo -e "\nDotfiles skipped."
