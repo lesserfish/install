@@ -153,7 +153,9 @@ if [ "$response" = "y" ]; then
     cp "$HOME/Rep/dotfiles/home/.tmux.conf" "$HOME/.tmux.conf"
     cp -r "$HOME/Rep/dotfiles/home/.config/fish/" "$HOME/.config/fish/"
     cp -r "$HOME/Rep/dotfiles/home/.config/nvim/" "$HOME/.config/nvim/"
+    nvm install 18.7.0
     nvim -c ":PluginInstall" -c ":qa"
+    cd "$HOME/.vim/bundle/coc.nvim" && npm install
 else
     echo -e "\nDotfiles skipped."
 fi
