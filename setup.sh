@@ -14,7 +14,7 @@ if [ "$response" = "y" ]; then
     echo -e "\nEmail: "
     read email
     ssh-keygen -t ed25519 -C "$email"
-    ssh-add ~/.ssh/id_ed25519
+    ssh-add "$HOME/.ssh/id_ed25519"
     echo -e "Key generated!\nPublic key:"
     cat .ssh/id_ed25519.pub
     echo -e "\n\n Press anything to continue"
@@ -78,8 +78,8 @@ read response
 
 if [ "$response" = "y" ]; then
     echo -e "\nCloning AmeKanji..."
-    mkdir -p "~/Rep/AmeKanji/"
-    git clone git@github.com:lesserfish/GoAme.git "~/Rep/AmeKanji/"
+    mkdir -p "$HOME/Rep/AmeKanji/"
+    git clone git@github.com:lesserfish/GoAme.git "$HOME/Rep/AmeKanji/"
 else
     echo -e "\nAmeKanji skipped."
 fi
@@ -89,8 +89,8 @@ read response
 
 if [ "$response" = "y" ]; then
     echo -e "\nCloning Home Website..."
-    mkdir -p "~/Rep/Home/"
-    git clone --recurse-submodule git@github.com:lesserfish/home.git "~/Rep/Home/"
+    mkdir -p "$HOME/Rep/Home/"
+    git clone --recurse-submodule git@github.com:lesserfish/home.git "$HOME/Rep/Home/"
 else
     echo -e "\nHome Website skipped."
 fi
@@ -100,8 +100,8 @@ read response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y nginx
-    sudo cp ~/install/lesserfish /etc/nginx/sites-available/lesserfish
-    sudo chown root root /etc/nginx/sites-available/lesserfish
+    sudo cp "$HOME/install/lesserfish" /etc/nginx/sites-available/lesserfish
+    sudo chown root:root /etc/nginx/sites-available/lesserfish
     sudo chmod 644 /etc/nginx/sites-available/lesserfish
     sudo ln -s /etc/nginx/sites-available/lesserfish /etc/nginx/sites-enabled/lesserfish
 else
@@ -130,11 +130,6 @@ if [ "$response" = "y" ]; then
     if [ "$response" = "y" ]; then
         sudo ufw allow ssh
     fi
-    echo -e "\nDo you want to allow HTTP?"
-    read response
-    if [ "$response" = "y" ]; then
-        sudo ufw allow http
-    fi
 else
     echo -e "\nFirewall skipped."
 fi
@@ -143,7 +138,7 @@ echo -e "\nDo you want to install tmux?"
 read response
 
 if [ "$response" = "y" ]; then
-    sudo install tmux
+    sudo apt install -y tmux
 else
     echo -e "\nTmux skipped."
 fi  
@@ -152,11 +147,12 @@ echo -e "\nDo you want to setup dotfiles?"
 read response
 
 if [ "$response" = "y" ]; then
-    mkdir -p ~/Rep/dotfiles/
-    git clone git@github.com:lesserfish/dotfiles.git "~/Rep/dotfiles/"
-    cp "~/Rep/dotfiles/home/.vimrc" "~/.vimrc"
-    cp "~/Rep/dotfiles/home/.tmux.conf" "~/.tmux.conf"
-    cp -r "~/Rep/dotfiles/home/.config/fish/" "~/.config/"
+    mkdir -p "$HOME/Rep/dotfiles/"
+    git clone git@github.com:lesserfish/dotfiles.git "$HOME/Rep/dotfiles/"
+    cp "$HOME/Rep/dotfiles/home/.vimrc" "$HOME/.vimrc"
+    cp "$HOME/Rep/dotfiles/home/.tmux.conf" "$HOME/.tmux.conf"
+    cp -r "$HOME/Rep/dotfiles/home/.config/fish/" "$HOME/.config/"
+    nvim -c ":PluginInstall" -c ":qa"
 else
     echo -e "\nDotfiles skipped."
 fi
