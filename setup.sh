@@ -151,6 +151,7 @@ if [ "$response" = "y" ]; then
     git clone git@github.com:lesserfish/dotfiles.git "$HOME/Rep/dotfiles/"
     cp "$HOME/Rep/dotfiles/home/.vimrc" "$HOME/.vimrc"
     cp "$HOME/Rep/dotfiles/home/.tmux.conf" "$HOME/.tmux.conf"
+    mkdir -p "$HOME/.config/"
     cp -r "$HOME/Rep/dotfiles/home/.config/fish/" "$HOME/.config/fish/"
     cp -r "$HOME/Rep/dotfiles/home/.config/nvim/" "$HOME/.config/nvim/"
     nvm install 18.7.0
