@@ -147,6 +147,7 @@ echo -e "\nDo you want to setup dotfiles?"
 read response
 
 if [ "$response" = "y" ]; then
+    sudo apt install -y silversearcher-ag
     mkdir -p "$HOME/Rep/dotfiles/"
     mkdir -p "$HOME/.config/"
     git clone git@github.com:lesserfish/dotfiles.git "$HOME/Rep/dotfiles/"
