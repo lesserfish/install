@@ -17,7 +17,7 @@ if [ "$response" = "y" ]; then
     ssh-add "$HOME/.ssh/id_ed25519"
     echo -e "Key generated!\nPublic key:"
     cat .ssh/id_ed25519.pub
-    echo -e "\n\n Press anything to continue"
+    echo -e "\n\nPress anything to continue"
     read null
 else
     echo -e "\nSSH skipped."
@@ -115,17 +115,17 @@ if [ "$response" = "y" ]; then
     sudo apt install -y ufw
     sudo ufw default deny incoming
     sudo ufw default allow outgoing
-    echo -e "\nDo you want to allow HTTP?"
+    echo -e "\nDo you want to allow HTTP (y/n)?"
     read response
     if [ "$response" = "y" ]; then
         sudo ufw allow http
     fi
-    echo -e "\nDo you want to allow HTTPS?"
+    echo -e "\nDo you want to allow HTTPS (y/n)?"
     read response
     if [ "$response" = "y" ]; then
         sudo ufw allow https
     fi
-    echo -e "\nDo you want to allow SSH?"
+    echo -e "\nDo you want to allow SSH (y/n)?"
     read response
     if [ "$response" = "y" ]; then
         sudo ufw allow ssh
