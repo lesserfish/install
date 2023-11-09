@@ -100,6 +100,7 @@ read response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y nginx
+    sudo rm /etc/nginx/sites-enabled/default
     sudo cp "$HOME/install/lesserfish" /etc/nginx/sites-available/lesserfish
     sudo chown root:root /etc/nginx/sites-available/lesserfish
     sudo chmod 644 /etc/nginx/sites-available/lesserfish
