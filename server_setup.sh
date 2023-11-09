@@ -170,6 +170,11 @@ else
     echo -e "\nDotfiles skipped."
 fi
 
+# Flush stdin. There is some trash left behind from the installation process.
+while read -r -t 0; do
+    read -r
+done
+
 echo -e "\nDo you want to install Golang?"
 read response
 
