@@ -135,7 +135,7 @@ else
     echo -e "\nFirewall skipped."
 fi
 
-echo -e "\nDo you want to install tmux?"
+echo -e "\nDo you want to install Tmux (y/n)?"
 read response
 
 if [ "$response" = "y" ]; then
@@ -144,7 +144,7 @@ else
     echo -e "\nTmux skipped."
 fi  
 
-echo -e "\nDo you want to setup dotfiles?"
+echo -e "\nDo you want to setup dotfiles (y/n)?"
 read response
 
 if [ "$response" = "y" ]; then
@@ -171,11 +171,9 @@ else
 fi
 
 # Flush stdin. There is some trash left behind from the installation process.
-while read -r -t 0; do
-    read -r
-done
+read -t 1 -n 10000 discard 
 
-echo -e "\nDo you want to install Golang?"
+echo -e "\nDo you want to install Golang (y/n)?"
 read response
 
 if [ "$response" = "y" ]; then
@@ -184,7 +182,7 @@ else
     echo -e "\nGolang skipped."
 fi
 
-echo -e "\nDo you want to install Haskell?"
+echo -e "\nDo you want to install Haskell? (y/n)"
 read response
 
 if [ "$response" = "y" ]; then
@@ -198,13 +196,13 @@ if [ "$response" = "y" ]; then
         sudo apt install -y build-essential curl libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5
     fi
     curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-    ghcup install ghc --set recommended
-    ghcup install cabal latest
+    fish -c "fish_add_path $HOME/.cabal/bin"
+    fish -c "fish_add_path $HOME/.ghcup/bin"
 else
     echo -e "\nHaskell skipped."
 fi
 
-echo -e "\nDo you want to install Python?"
+echo -e "\nDo you want to install Python? (y/n)"
 read response
 
 if [ "$response" = "y" ]; then
