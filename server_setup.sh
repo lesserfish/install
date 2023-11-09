@@ -198,3 +198,12 @@ if [ "$response" = "y" ]; then
 else
     echo -e "\nHaskell skipped."
 fi
+
+echo -e "\nDo you want to install Python?"
+read response
+
+if [ "$response" = "y" ]; then
+    sudo apt install -y python3
+else
+    echo -e "\nPython skipped."
+fi
