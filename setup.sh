@@ -148,16 +148,24 @@ read response
 
 if [ "$response" = "y" ]; then
     mkdir -p "$HOME/Rep/dotfiles/"
-    git clone git@github.com:lesserfish/dotfiles.git "$HOME/Rep/dotfiles/"
-    cp "$HOME/Rep/dotfiles/home/.vimrc" "$HOME/.vimrc"
-    cp "$HOME/Rep/dotfiles/home/.tmux.conf" "$HOME/.tmux.conf"
     mkdir -p "$HOME/.config/"
-    cp -r "$HOME/Rep/dotfiles/home/.config/fish/" "$HOME/.config/fish/"
-    cp -r "$HOME/Rep/dotfiles/home/.config/nvim/" "$HOME/.config/nvim/"
+    git clone git@github.com:lesserfish/dotfiles.git "$HOME/Rep/dotfiles/"
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    mv "$HOME/Rep/dotfiles/home/.vimrc" "$HOME/.vimrc"
+    mv "$HOME/Rep/dotfiles/home/.tmux.conf" "$HOME/.tmux.conf"
+    mv "$HOME/Rep/dotfiles/home/.config/nvim/" "$HOME/.config/nvim/"
+
+    fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
+    fish -c "fisher install jorgebucaran/nvm.fish"
     fish -c "nvm install 18.7.0"
+
     nvim -c ":PluginInstall" -c ":qa"
-    cd "$HOME/.vim/bundle/coc.nvim" && npm install
+    fish -c "cd "$HOME/.vim/bundle/coc.nvim" && nvm use v18.7.0 && npm install"
+
+    cp "$HOME/Rep/dotfiles/home/.config/fish/config.fish" "$HOME/.config/fish/config.fish"
+    rm -rf "$HOME/Rep/dotfiles"
 else
     echo -e "\nDotfiles skipped."
 fi
+
 
