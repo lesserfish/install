@@ -170,4 +170,31 @@ else
     echo -e "\nDotfiles skipped."
 fi
 
+echo -e "\nDo you want to install Golang?"
+read response
 
+if [ "$response" = "y" ]; then
+    sudo apt install -y golang
+else
+    echo -e "\nGolang skipped."
+fi
+
+echo -e "\nDo you want to install Haskell?"
+read response
+
+if [ "$response" = "y" ]; then
+    echo -e "\nIs this Ubuntu 20.04 (a) or Ubuntu 22.04 (b)?"
+    read response
+    if [ "$response" = "a" ]; then
+        sudo apt install -y build-essential curl libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5
+    elif [ "$response" = "b" ];  then
+        sudo apt install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5
+    else 
+        sudo apt install -y build-essential curl libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5
+    fi
+    curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+    ghcup install ghc --set recommended
+    ghcup install cabal latest
+else
+    echo -e "\nHaskell skipped."
+fi
