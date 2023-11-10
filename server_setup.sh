@@ -280,6 +280,7 @@ if [ "$response" = "y" ]; then
     mkdir -p "/home/$username/shared"
     sudo smbpasswd -a "$username"
     sudo USERNAME="$username" envsubst < "$HOME/install/samba/smb.conf" | sudo tee -a /etc/samba/smb.conf
+    sudo systemctl restart smbd
 else
     echo -e "\nSamba skipped."
 fi
