@@ -69,6 +69,7 @@ if [ "$response" = "y" ]; then
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     sudo groupadd docker
     sudo usermod -aG docker $USER
+    sudo apt install -y docker-compose
 else
     echo -e "\nDocker installation skipped."
 fi
@@ -108,8 +109,8 @@ if [ "$response" = "y" ]; then
     echo -e "\nCloning Home Website..."
     mkdir -p "$HOME/Rep/Home/"
     git clone --recurse-submodule git@github.com:lesserfish/home.git "$HOME/Rep/Home/"
-    mv "$HOME/Rep/Home/URMSimulator/public/" "/var/www/URM"
-    mv "$HOME/Rep/Home/KMPA/build/v1.0/build/" "/var/www/KMPA/"
+    sudo mv "$HOME/Rep/Home/URMSimulator/public/" "/var/www/URM"
+    sudo mv "$HOME/Rep/Home/KMPA/build/v1.0/build/" "/var/www/KMPA/"
     echo -e "\nAdding home website to NGINX..."
     sudo cp "$HOME/install/nginx/lesserfish" /etc/nginx/sites-available/lesserfish
     sudo chown root:root /etc/nginx/sites-available/lesserfish
