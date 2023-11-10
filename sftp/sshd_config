@@ -1,0 +1,8 @@
+Match User $USERNAME
+    ForceCommand internal-sftp
+    PasswordAuthentication yes
+    ChrootDirectory /home/$USERNAME
+    PermitTunnel no
+    AllowAgentForwarding no
+    AllowTcpForwarding no
+    X11Forwarding no

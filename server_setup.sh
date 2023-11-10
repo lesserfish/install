@@ -157,6 +157,12 @@ if [ "$response" = "y" ]; then
     if [ "$response" = "y" ]; then
         sudo ufw allow ssh
     fi
+    echo -e "\nDo you want to allow Samba (y/n)?"
+    read response
+    if [ "$response" = "y" ]; then
+        sudo ufw allow Samba
+    fi
+
 else
     echo -e "\nFirewall skipped."
 fi
@@ -238,3 +244,33 @@ else
 fi
 
 
+echo -e "\nDo you want to install SFTP ? (y/n)"
+read response
+
+if [ "$response" = "y" ]; then
+    sudo apt install -y gettext openssh-server 
+    read -p "Enter the username of the SFTP User: " username
+
+    if ! id "$username" >/dev/null 2>&1; then
+        echo "User $username does not exist. Creating it!"
+        sudo adduser "$username"
+    fi
+    echo -e "\nAdding user to sshd_config"
+    sudo USERNAME="$username" envsubst < "$HOME/install/sftp/sshd_config" | sudo tee -a /etc/ssh/sshd_config
+    sudo chown root:root "/home/$username"
+    sudo chmod 755 "/home/$username"
+    sudo mkdir "/home/$username/shared"
+    sudo chown "$username:$username" "/home/$username/shared"
+    sudo systemctl restart ssh 
+else
+    echo -e "\nSFTP skipped."
+fi
+
+echo -e "\nDo you want to install Samba ? (y/n)"
+read response
+
+if [ "$response" = "y" ]; then
+    sudo apt install -y gettext
+else
+    echo -e "\nPython skipped."
+fi
