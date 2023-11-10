@@ -112,10 +112,10 @@ if [ "$response" = "y" ]; then
     sudo mv "$HOME/Rep/Home/URMSimulator/public/" "/var/www/URM"
     sudo mv "$HOME/Rep/Home/KMPA/build/v1.0/build/" "/var/www/KMPA/"
     echo -e "\nAdding home website to NGINX..."
-    sudo cp "$HOME/install/nginx/lesserfish" /etc/nginx/sites-available/lesserfish
-    sudo chown root:root /etc/nginx/sites-available/lesserfish
-    sudo chmod 644 /etc/nginx/sites-available/lesserfish
-    sudo ln -s /etc/nginx/sites-available/lesserfish /etc/nginx/sites-enabled/lesserfish
+    sudo cp "$HOME/install/nginx/home" /etc/nginx/sites-available/home
+    sudo chown root:root /etc/nginx/sites-available/home
+    sudo chmod 644 /etc/nginx/sites-available/home
+    sudo ln -s /etc/nginx/sites-available/home /etc/nginx/sites-enabled/home
 
 else
     echo -e "\nHome Website skipped."
