@@ -270,7 +270,16 @@ echo -e "\nDo you want to install Samba ? (y/n)"
 read response
 
 if [ "$response" = "y" ]; then
-    sudo apt install -y gettext
+    sudo apt install -y samba gettext
+    read -p "Enter the username of the Samba User: " username
+
+    if ! id "$username" >/dev/null 2>&1; then
+        echo "User $username does not exist. Creating it!"
+        sudo adduser "$username"
+    fi
+    mkdir -p "/home/$USERNAME/shared"
+    sudo smbpasswd -a "$username"
+    sudo USERNAME="$username" envsubst < "$HOME/install/samba/smb.conf" | sudo tee -a /etc/samba/smb.conf
 else
-    echo -e "\nPython skipped."
+    echo -e "\nSamba skipped."
 fi
