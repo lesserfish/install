@@ -105,6 +105,7 @@ if [ "$response" = "y" ]; then
     sudo chown root:root /etc/nginx/sites-available/lesserfish
     sudo chmod 644 /etc/nginx/sites-available/lesserfish
     sudo ln -s /etc/nginx/sites-available/lesserfish /etc/nginx/sites-enabled/lesserfish
+    sudo systemctl restart nginx
 else
     echo -e "\nNginx skipped."
 fi
