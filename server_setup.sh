@@ -6,8 +6,7 @@ sudo apt update
 echo -e "\nInstalling requirements"
 sudo apt install -y wget ca-certificates curl gnupg git make
 
-echo -e "\nDo you want to setup SSH keys (y/n)?"
-read response
+read -p "Do you want to setup SSH keys (y/n)?" response
 
 if [ "$response" = "y" ]; then
 
@@ -23,8 +22,7 @@ else
     echo -e "\nSSH skipped."
 fi
 
-echo -e "\nDo you want to install Fish (y/n)?"
-read response
+read -p "Do you want to install Fish (y/n)?" response
 
 if [ "$response" = "y" ]; then
     echo -e "\nInstalling Fish..."
@@ -35,8 +33,7 @@ else
 fi
 
 
-echo -e "\nDo you want to install Neovim (y/n)?"
-read response
+read -p "Do you want to install Neovim (y/n)?" response
 
 if [ "$response" = "y" ]; then
     echo -e "\nDownloading Neovim..."
@@ -52,8 +49,7 @@ else
     echo -e "\nNeovim installation skipped."
 fi
 
-echo -e "\nDo you want to install Docker (y/n)?"
-read response
+read -p "Do you want to install Docker (y/n)?" response
 
 if [ "$response" = "y" ]; then
     echo -e "\nDownloading Docker..."
@@ -74,8 +70,7 @@ else
     echo -e "\nDocker installation skipped."
 fi
 
-echo -e "\nDo you want to install Nginx (y/n)?"
-read response
+read -p "Do you want to install Nginx (y/n)?" response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y nginx
@@ -85,8 +80,7 @@ else
     echo -e "\nNginx skipped."
 fi
 
-echo -e "\nDo you want to clone AmeKanji (y/n)?"
-read response
+read -p "Do you want to clone AmeKanji (y/n)?" response
 
 if [ "$response" = "y" ]; then
     echo -e "\nCloning AmeKanji..."
@@ -102,8 +96,7 @@ else
     echo -e "\nAmeKanji skipped."
 fi
 
-echo -e "\nDo you want to clone Home Website (y/n)?"
-read response
+read -p "Do you want to clone Home Website (y/n)?" response
 
 if [ "$response" = "y" ]; then
     echo -e "\nCloning Home Website..."
@@ -121,8 +114,7 @@ else
     echo -e "\nHome Website skipped."
 fi
 
-echo -e "\nDo you want to setup Owncloud? (y/n)"
-read response
+read -p "Do you want to setup Owncloud? (y/n)" response
 
 if [ "$response" = "y" ]; then
     cp -r "$HOME/install/owncloud" "$HOME/Rep/owncloud/"
@@ -135,8 +127,7 @@ else
     echo -e "\nOwncloud skipped."
 fi
 
-echo -e "\nDo you want to setup Firewall (y/n)?"
-read response
+read -p "Do you want to setup Firewall (y/n)?" response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y ufw
@@ -167,8 +158,7 @@ else
     echo -e "\nFirewall skipped."
 fi
 
-echo -e "\nDo you want to install Tmux (y/n)?"
-read response
+read -p "Do you want to install Tmux (y/n)?" response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y tmux
@@ -176,8 +166,7 @@ else
     echo -e "\nTmux skipped."
 fi  
 
-echo -e "\nDo you want to setup dotfiles (y/n)?"
-read response
+read -p "Do you want to setup dotfiles (y/n)?" response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y silversearcher-ag
@@ -205,8 +194,7 @@ fi
 # Flush stdin. There is some trash left behind from the installation process.
 read -t 1 -n 10000 discard 
 
-echo -e "\nDo you want to install Golang (y/n)?"
-read response
+read -p "Do you want to install Golang (y/n)?" response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y golang
@@ -214,8 +202,7 @@ else
     echo -e "\nGolang skipped."
 fi
 
-echo -e "\nDo you want to install Haskell? (y/n)"
-read response
+read -p "Do you want to install Haskell? (y/n)" response
 
 if [ "$response" = "y" ]; then
     echo -e "\nIs this Ubuntu 20.04 (a) or Ubuntu 22.04 (b)?"
@@ -234,8 +221,7 @@ else
     echo -e "\nHaskell skipped."
 fi
 
-echo -e "\nDo you want to install Python? (y/n)"
-read response
+read -p "Do you want to install Python? (y/n)" response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y python3
@@ -244,8 +230,7 @@ else
 fi
 
 
-echo -e "\nDo you want to install SFTP ? (y/n)"
-read response
+read -p "Do you want to install SFTP ? (y/n)" response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y gettext openssh-server 
@@ -266,8 +251,7 @@ else
     echo -e "\nSFTP skipped."
 fi
 
-echo -e "\nDo you want to install Samba ? (y/n)"
-read response
+read -p "Do you want to install Samba ? (y/n)" response
 
 if [ "$response" = "y" ]; then
     sudo apt install -y samba gettext smbclient
@@ -283,4 +267,16 @@ if [ "$response" = "y" ]; then
     sudo systemctl restart smbd
 else
     echo -e "\nSamba skipped."
+fi
+
+read -p "Do you want to setup Contabo object storage with rclone? (y/n)" response
+
+if [ "$response" = "y" ]; then
+    sudo apt install -y rclone
+    read -p "Enter the name of the remote: " name
+    read -p "Enter the access key: " ACCESS_KEY
+    read -p "Enter the secret key: " SECRET_KEY
+    rclone config create $name s3 provider Other env_auth false access_key_id $ACCESS_KEY secret_access_key $SECRET_KEY endpoint "usc1.contabostorage.com"
+else
+    echo -e "\nObject storage skipped."
 fi
