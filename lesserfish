@@ -42,17 +42,6 @@ server {
                 proxy_pass          http://localhost:9100;
         }
 }
-server {
-        listen 80;
-        server_name auto.lesserfish.dev;
-
-        include /etc/nginx/mime.types;
-
-        root /var/www/Auto/;
-
-        location / {
-        }
-}
 
 server {
         listen 80;

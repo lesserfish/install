@@ -91,6 +91,8 @@ if [ "$response" = "y" ]; then
     echo -e "\nCloning Home Website..."
     mkdir -p "$HOME/Rep/Home/"
     git clone --recurse-submodule git@github.com:lesserfish/home.git "$HOME/Rep/Home/"
+    mv "$HOME/Rep/Home/URMSimulator/public/" "/var/www/URM"
+    mv "$HOME/Rep/Home/KMPA/build/v1.0/build/" "/var/www/KMPA/"
 else
     echo -e "\nHome Website skipped."
 fi
@@ -210,4 +212,13 @@ if [ "$response" = "y" ]; then
     sudo apt install -y python3
 else
     echo -e "\nPython skipped."
+fi
+
+echo -e "\nDo you want to setup Owncloud? (y/n)"
+read response
+
+if [ "$response" = "y" ]; then
+    cp -r "$HOME/install/owncloud" "$HOME/Rep/owncloud/"
+else
+    echo -e "\nOwncloud skipped."
 fi
