@@ -4,7 +4,7 @@ echo -e "\nUpdating repositories..."
 sudo apt update
 
 echo -e "\nInstalling requirements"
-sudo apt install -y wget ca-certificates curl gnupg git
+sudo apt install -y wget ca-certificates curl gnupg git make
 
 echo -e "\nDo you want to setup SSH keys (y/n)?"
 read response
