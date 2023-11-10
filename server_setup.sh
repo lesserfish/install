@@ -73,6 +73,17 @@ else
     echo -e "\nDocker installation skipped."
 fi
 
+echo -e "\nDo you want to install Nginx (y/n)?"
+read response
+
+if [ "$response" = "y" ]; then
+    sudo apt install -y nginx
+    sudo rm /etc/nginx/sites-enabled/default
+        sudo systemctl restart nginx
+else
+    echo -e "\nNginx skipped."
+fi
+
 echo -e "\nDo you want to clone AmeKanji (y/n)?"
 read response
 
@@ -80,6 +91,12 @@ if [ "$response" = "y" ]; then
     echo -e "\nCloning AmeKanji..."
     mkdir -p "$HOME/Rep/AmeKanji/"
     git clone git@github.com:lesserfish/GoAme.git "$HOME/Rep/AmeKanji/"
+    echo -e "\nAdding AmeKanji to NGINX..."
+    sudo cp "$HOME/install/nginx/amekanji" /etc/nginx/sites-available/amekanji
+    sudo chown root:root /etc/nginx/sites-available/amekanji
+    sudo chmod 644 /etc/nginx/sites-available/amekanji
+    sudo ln -s /etc/nginx/sites-available/amekanji /etc/nginx/sites-enabled/amekanji
+
 else
     echo -e "\nAmeKanji skipped."
 fi
@@ -93,23 +110,28 @@ if [ "$response" = "y" ]; then
     git clone --recurse-submodule git@github.com:lesserfish/home.git "$HOME/Rep/Home/"
     mv "$HOME/Rep/Home/URMSimulator/public/" "/var/www/URM"
     mv "$HOME/Rep/Home/KMPA/build/v1.0/build/" "/var/www/KMPA/"
+    echo -e "\nAdding home website to NGINX..."
+    sudo cp "$HOME/install/nginx/lesserfish" /etc/nginx/sites-available/lesserfish
+    sudo chown root:root /etc/nginx/sites-available/lesserfish
+    sudo chmod 644 /etc/nginx/sites-available/lesserfish
+    sudo ln -s /etc/nginx/sites-available/lesserfish /etc/nginx/sites-enabled/lesserfish
+
 else
     echo -e "\nHome Website skipped."
 fi
 
-echo -e "\nDo you want to install Nginx (y/n)?"
+echo -e "\nDo you want to setup Owncloud? (y/n)"
 read response
 
 if [ "$response" = "y" ]; then
-    sudo apt install -y nginx
-    sudo rm /etc/nginx/sites-enabled/default
-    sudo cp "$HOME/install/lesserfish" /etc/nginx/sites-available/lesserfish
-    sudo chown root:root /etc/nginx/sites-available/lesserfish
-    sudo chmod 644 /etc/nginx/sites-available/lesserfish
-    sudo ln -s /etc/nginx/sites-available/lesserfish /etc/nginx/sites-enabled/lesserfish
-    sudo systemctl restart nginx
+    cp -r "$HOME/install/owncloud" "$HOME/Rep/owncloud/"
+    echo -e "\nAdding Owncloud to NGINX..."
+    sudo cp "$HOME/install/nginx/owncloud" /etc/nginx/sites-available/owncloud
+    sudo chown root:root /etc/nginx/sites-available/owncloud
+    sudo chmod 644 /etc/nginx/sites-available/owncloud
+    sudo ln -s /etc/nginx/sites-available/owncloud /etc/nginx/sites-enabled/owncloud
 else
-    echo -e "\nNginx skipped."
+    echo -e "\nOwncloud skipped."
 fi
 
 echo -e "\nDo you want to setup Firewall (y/n)?"
@@ -214,11 +236,4 @@ else
     echo -e "\nPython skipped."
 fi
 
-echo -e "\nDo you want to setup Owncloud? (y/n)"
-read response
 
-if [ "$response" = "y" ]; then
-    cp -r "$HOME/install/owncloud" "$HOME/Rep/owncloud/"
-else
-    echo -e "\nOwncloud skipped."
-fi
