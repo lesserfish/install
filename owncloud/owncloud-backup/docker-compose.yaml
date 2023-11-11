@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  backup:
+    image: ubuntu:22.04
+    container_name: owncloud_backup
+    command: /bin/bash -c /tmp/backup.sh
+    restart: "no"
+    volumes:
+      - ../owncloud-data/:/mnt/data
+      - ./contents/backup.sh:/tmp/backup.sh
+      - ./contents/.env:/tmp/.env
