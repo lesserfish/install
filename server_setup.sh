@@ -242,10 +242,11 @@ read -p "Do you want to setup Contabo object storage with rclone? (y/n)" respons
 
 if [ "$response" = "y" ]; then
     sudo apt install -y rclone
-    read -p "Enter the name of the remote: " name
+    read -p "Enter the name of the remote: " NAME
+    read -p "Enter the endpoint: " ENDPOINT
     read -p "Enter the access key: " ACCESS_KEY
     read -p "Enter the secret key: " SECRET_KEY
-    rclone config create $name s3 provider Other env_auth false access_key_id $ACCESS_KEY secret_access_key $SECRET_KEY endpoint "usc1.contabostorage.com"
+    rclone config create $NAME s3 provider Other env_auth false access_key_id $ACCESS_KEY secret_access_key $SECRET_KEY endpoint $ENDPOINT
 else
     echo -e "\nObject storage skipped."
 fi
