@@ -32,7 +32,6 @@ else
     echo -e "\nFish installation skipped."
 fi
 
-
 read -p "Do you want to install Neovim (y/n)?" response
 
 if [ "$response" = "y" ]; then
@@ -127,36 +126,6 @@ else
     echo -e "\nOwncloud skipped."
 fi
 
-read -p "Do you want to setup Firewall (y/n)?" response
-
-if [ "$response" = "y" ]; then
-    sudo apt install -y ufw
-    sudo ufw default deny incoming
-    sudo ufw default allow outgoing
-    echo -e "\nDo you want to allow HTTP (y/n)?"
-    read response
-    if [ "$response" = "y" ]; then
-        sudo ufw allow http
-    fi
-    echo -e "\nDo you want to allow HTTPS (y/n)?"
-    read response
-    if [ "$response" = "y" ]; then
-        sudo ufw allow https
-    fi
-    echo -e "\nDo you want to allow SSH (y/n)?"
-    read response
-    if [ "$response" = "y" ]; then
-        sudo ufw allow ssh
-    fi
-    echo -e "\nDo you want to allow Samba (y/n)?"
-    read response
-    if [ "$response" = "y" ]; then
-        sudo ufw allow Samba
-    fi
-
-else
-    echo -e "\nFirewall skipped."
-fi
 
 read -p "Do you want to install Tmux (y/n)?" response
 
@@ -280,3 +249,35 @@ if [ "$response" = "y" ]; then
 else
     echo -e "\nObject storage skipped."
 fi
+
+read -p "Do you want to setup Firewall (y/n)?" response
+
+if [ "$response" = "y" ]; then
+    sudo apt install -y ufw
+    sudo ufw default deny incoming
+    sudo ufw default allow outgoing
+    echo -e "\nDo you want to allow HTTP (y/n)?"
+    read response
+    if [ "$response" = "y" ]; then
+        sudo ufw allow http
+    fi
+    echo -e "\nDo you want to allow HTTPS (y/n)?"
+    read response
+    if [ "$response" = "y" ]; then
+        sudo ufw allow https
+    fi
+    echo -e "\nDo you want to allow SSH (y/n)?"
+    read response
+    if [ "$response" = "y" ]; then
+        sudo ufw allow ssh
+    fi
+    echo -e "\nDo you want to allow Samba (y/n)?"
+    read response
+    if [ "$response" = "y" ]; then
+        sudo ufw allow Samba
+    fi
+
+else
+    echo -e "\nFirewall skipped."
+fi
+

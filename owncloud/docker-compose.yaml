@@ -1,8 +1,6 @@
 version: "3"
 
 volumes:
-  files:
-    driver: local
   mysql:
     driver: local
   redis:
@@ -37,7 +35,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - files:/mnt/data
+      - ./owncloud-data/:/mnt/data
 
   mariadb:
     image: mariadb:10.11 # minimum required ownCloud version is 10.9
